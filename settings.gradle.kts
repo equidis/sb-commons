@@ -1,6 +1,6 @@
 rootProject.name = "sb-commons"
 
-include("commons-cache")
-include("commons-context")
-include("commons-mongo")
-include("commons-web")
+include("sb-commons-cache")
+include("sb-commons-context")
+include("sb-commons-mongo")
+include("sb-commons-web")
