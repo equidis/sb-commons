@@ -27,7 +27,7 @@ allprojects {
 
 subprojects {
     group = "com.github.jntakpe"
-    version = "0.1.0-RC3"
+    version = "0.1.0-RC4"
 
     dependencies {
         api(enforcedPlatform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
