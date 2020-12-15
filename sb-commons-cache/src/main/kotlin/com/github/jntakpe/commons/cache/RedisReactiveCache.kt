@@ -9,7 +9,6 @@ import reactor.kotlin.core.publisher.toMono
 class RedisReactiveCache(
     private val cacheName: String,
     cacheManager: RedisCacheManager,
-    //private val tracingOperator: ReactorTracingOperator
 ) {
 
     private val log = logger()
@@ -18,7 +17,6 @@ class RedisReactiveCache(
     fun <T : Any> find(key: Any, type: Class<T>): Mono<T> {
         return { cache.get(key, type) }.toMono()
             .doOnSubscribe { log.debug("Searching {} from cache {}", key, cacheName) }
-            //.transform(tracingOperator.operator())
             .flatMap { Mono.justOrEmpty(it) }
             .doOnNext { log.debug("{} retrieved from cache {} with key {}", it, cacheName, key) }
             .switchIfEmpty { log.debug("Key {} not found in cache {}", key, cacheName).run { Mono.empty() } }
@@ -45,7 +43,6 @@ class RedisReactiveCache(
     fun <T : Any> put(key: Any, data: T): Mono<T> {
         return { cache.put(key, data) }.toMono()
             .doOnSubscribe { log.debug("Caching key {} in cache {}", key, cacheName) }
-            //.transform(tracingOperator.operator())
             .doOnSuccess { log.debug("Key {} cached in cache {}", key, cacheName) }
             .map { data }
             .switchIfEmpty { Mono.just(data).doOnSubscribe { log.debug("Key {} not cached in cache {}", key, cacheName) } }
@@ -60,8 +57,6 @@ class RedisReactiveCache(
     fun evict(key: Any): Mono<Void> {
         return { cache.evict(key) }.toMono()
             .doOnSubscribe { log.debug("Evicting {} from cache {}", key, cacheName) }
-            //.transform(tracingOperator.operator())
-            //.filter { it }
             .doOnSuccess { log.debug("{} evicted from cache {}", key, cacheName) }
             .switchIfEmpty { log.debug("Key {} not evicted from cache {}", key, cacheName).run { Mono.empty() } }
             .doOnError { log.warn("Unable to evict {} from cache {}", key, cacheName) }
