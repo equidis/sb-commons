@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val kotlinVersion: String by project
 val springBootVersion: String by project
+val springCloudVersion: String by project
 
 plugins {
     idea
@@ -20,6 +21,7 @@ allprojects {
         mavenLocal()
         mavenCentral()
         jcenter()
+        maven { url = uri("https://repo.spring.io/milestone") }
     }
 }
 
@@ -29,6 +31,7 @@ subprojects {
 
     dependencies {
         api(enforcedPlatform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
+        api(enforcedPlatform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"))
         api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
         api("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     }
