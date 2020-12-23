@@ -21,7 +21,6 @@ allprojects {
         mavenLocal()
         mavenCentral()
         jcenter()
-        maven { url = uri("https://repo.spring.io/milestone") }
     }
 }
 
