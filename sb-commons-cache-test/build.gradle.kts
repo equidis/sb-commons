@@ -4,7 +4,7 @@ val assertJVersion: String by project
 val testContainersVersion: String by project
 
 plugins {
-    kotlin("plugin.spring") version "1.4.21"
+    kotlin("plugin.spring") version "1.4.30"
 }
 
 dependencies {
