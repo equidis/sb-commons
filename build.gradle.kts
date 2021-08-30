@@ -8,7 +8,7 @@ plugins {
     idea
     `java-library`
     `maven-publish`
-    kotlin("jvm") version "1.4.32"
+    kotlin("jvm") version "1.5.30"
 }
 
 allprojects {
